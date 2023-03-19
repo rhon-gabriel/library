@@ -22,14 +22,18 @@ const BookCard = ({ onClick, book }) => {
         </header>
 
         <footer className="flex items-center leading-none p-2 md:p-4">
-          <img
-            alt="Placeholder"
-            className="block rounded-full w-8 h-8"
-            src={`https://covers.openlibrary.org/a/olid/${book.author_key[0]}.jpg`}
-          />
-          <p className="ml-2 text-sm" data-testid="book-author">
-            {book.author_name[0]}
-          </p>
+          {book.author_key && (
+            <img
+              alt="Placeholder"
+              className="block rounded-full w-8 h-8"
+              src={`https://covers.openlibrary.org/a/olid/${book.author_key[0]}.jpg`}
+            />
+          )}
+          {book.author_name && (
+            <p className="ml-2 text-sm" data-testid="book-author">
+              {book.author_name[0]}
+            </p>
+          )}
         </footer>
       </article>
     </div>
