@@ -1,19 +1,25 @@
 import React from "react";
 
 const Modal = ({ showModal, setShowModal, selectedBook }) => {
- 
   const addToFavorites = () => {
-    const favoritedBooks = JSON.parse(localStorage.getItem("favorites") || "[]");
-    const existingBook = favoritedBooks.findIndex(book => book.key === selectedBook.key)
-    if(existingBook === -1) {
-        favoritedBooks.push(selectedBook)
+    const favoritedBooks = JSON.parse(
+      localStorage.getItem("favorites") || "[]"
+    );
+    const existingBook = favoritedBooks.findIndex(
+      (book) => book.key === selectedBook.key
+    );
+    if (existingBook === -1) {
+      favoritedBooks.push(selectedBook);
     }
     localStorage.setItem("favorites", JSON.stringify(favoritedBooks));
-    setShowModal(false)
+    setShowModal(false);
   };
 
   return (
-    <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+    <div
+      className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+      data-testid="book-modal"
+    >
       {showModal && (
         <div className="relative w-auto my-6 mx-auto max-w-3xl">
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -53,7 +59,11 @@ const Modal = ({ showModal, setShowModal, selectedBook }) => {
               </div>
             </div>
             <div className="flex items-center justify-between p-6 border-t border-solid border-slate-200 rounded-b">
-              <button className="text-blue-500" onClick={addToFavorites}>
+              <button
+                className="text-blue-500"
+                onClick={addToFavorites}
+                data-testid="favorite-button"
+              >
                 Add to favorites
               </button>
               <button

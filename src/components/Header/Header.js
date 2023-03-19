@@ -11,7 +11,7 @@ const Header = () => {
           {listHeader.map((item) => {
             return (
               <Link to={`/${item}`} key={item}>
-                <div className="px-4">
+                <div className="px-4" data-testid={item}>
                   <p className="text-gray-700 capitalize">{item}</p>
                 </div>
               </Link>
