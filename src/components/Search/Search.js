@@ -10,9 +10,7 @@ const Search = () => {
     const params = {
       title: searchedBook,
     };
-    searchedBook
-      ? dispatch(actions.getBooks(params))
-      : console.log("Please, add an author or book title");
+    searchedBook && dispatch(actions.getBooks(params))
   };
 
   const onKeyDown = event => {

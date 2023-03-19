@@ -1,6 +1,17 @@
 import React from "react";
 
 const Modal = ({ showModal, setShowModal, selectedBook }) => {
+ 
+  const addToFavorites = () => {
+    const favoritedBooks = JSON.parse(localStorage.getItem("favorites") || "[]");
+    const existingBook = favoritedBooks.findIndex(book => book.key === selectedBook.key)
+    if(existingBook === -1) {
+        favoritedBooks.push(selectedBook)
+    }
+    localStorage.setItem("favorites", JSON.stringify(favoritedBooks));
+    setShowModal(false)
+  };
+
   return (
     <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
       {showModal && (
@@ -42,7 +53,9 @@ const Modal = ({ showModal, setShowModal, selectedBook }) => {
               </div>
             </div>
             <div className="flex items-center justify-between p-6 border-t border-solid border-slate-200 rounded-b">
-              <button className="text-blue-500">Add to favorites</button>
+              <button className="text-blue-500" onClick={addToFavorites}>
+                Add to favorites
+              </button>
               <button
                 className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
