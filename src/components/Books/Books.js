@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import Modal from "../Modal/Modal";
 
 const Books = () => {
   const { results, error } = useSelector((state) => state.books);
+  const [selectedBook, setSelectedBook] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="container my-12 mx-auto px-4 md:px-12">
@@ -13,8 +16,12 @@ const Books = () => {
           {results?.docs?.map((book) => {
             return (
               <div
-                className="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/5"
+                className="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/5 cursor-pointer"
                 key={book.key}
+                onClick={() => {
+                  setShowModal(true);
+                  setSelectedBook(book);
+                }}
               >
                 <article className="overflow-hidden rounded-lg shadow-lg">
                   <img
@@ -39,6 +46,13 @@ const Books = () => {
               </div>
             );
           })}
+          {showModal && (
+            <Modal
+              showModal={showModal}
+              setShowModal={setShowModal}
+              selectedBook={selectedBook}
+            />
+          )}
         </div>
       )}
     </div>

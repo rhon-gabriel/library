@@ -14,7 +14,15 @@ const Search = () => {
       ? dispatch(actions.getBooks(params))
       : console.log("Please, add an author or book title");
   };
-  console.log('searchedBook', searchedBook)
+
+  const onKeyDown = event => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        event.stopPropagation();
+        onSearch();
+      }
+  }
+  
 
   return (
     <form className="w-full max-w-sm">
@@ -24,6 +32,7 @@ const Search = () => {
           type="text"
           placeholder="Search"
           onChange={(e) => setSearchedBook(e.target.value)}
+          onKeyDown={onKeyDown}
         />
         <button
           className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
